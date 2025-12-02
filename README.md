@@ -388,7 +388,9 @@ SHOW GLOBAL STATUS LIKE '%Queries%';
 SHOW GLOBAL VARIABLES LIKE '%buffer%';
 --- 쿼리 수, 버퍼 풀 히트율 등 성능 지표. QPS(Queries per second) 계산으로 부하 모니터링.
 ```
-<details> 
+</details> 
+
+---
 
 ### 파이썬
 

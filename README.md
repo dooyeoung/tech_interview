@@ -827,10 +827,6 @@ ttl이 만료되면 상품의 예약 수량을 차감한다
 필요한 권한만 부여, 위치, 디바이스, 사용자 등 판단후 접근 허용
 </details> 
 
-<details> 
-<summary> </summary>
-</details> 
-
 ---
 ### 과제 
 

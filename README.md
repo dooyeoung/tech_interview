@@ -452,6 +452,24 @@ gc에서 참조 카운팅을 사용해 객체의 참조 수를 추적하고 0이
 ### 웹
 
 <details> 
+<summary>헤더 사용이유</summary>
+
+RFC 표준임
+헤더는 SSL/TLS로 보호되어 body보다 안전
+GET요청에서 body 사용 불가
+커스텀 헤더는 X-로 사용
+</details> 
+
+<details> 
+<summary>쿠키</summary>
+
+서버가 클라이언트에 전송하는 데이터 조각(4kb이내) 
+stateless한 Http프로토콜에서 상태 유지를 위해 사용함
+
+세션관리, 사용자 추적, 분석 광고 등에 사용함
+</details> 
+
+<details> 
 <summary> 브라우져에서 도메인 입력후 흐름</summary>
 
 브라우저 사용흐름?
@@ -768,6 +786,14 @@ Rolling: 서버를 하나씩 순차적으로 교체.
 ### 운영
 
 <details> 
+<summary> 캐시 전략</summary>
+
+레이지 로딩: 읽기 시 캐시 확인 없으면 db일기 후 캐시 갱신
+write-throught: 쓰기시 db, 캐시 같이 업데이트
+
+</details> 
+
+<details> 
 <summary> 배포 방식</summary>
 
 - Blue/Green: 구버전/신버전 서버를 동시에 띄우고 트래픽만 전환 (다운타임 없음, 리소스 2배).
@@ -832,7 +858,8 @@ ttl이 만료되면 상품의 예약 수량을 차감한다
 
 - 리뷰 시스템
 
-- 티켓 예약 시스템
+- [티켓 예약 시스템](ticket_system.md)
+
 
 - 결제 시스템
 

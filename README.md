@@ -18,7 +18,6 @@
 백엔드 엔지니어로서는 안정적인 시스템 운영, 성능 최적화를 진행하며 경력을 쌓아왔습니다
 </details>
 
-
 <details>
 <summary>지원 이유</summary>
 
@@ -124,10 +123,6 @@ msa환경에서 전체 도메인을 변경해야 하는 작업이 있었습니�
 </details>
 
 <details>
-<summary>한정된 리소스에서 품질을 유지하기 위한 방법은 무엇?</summary>
-</details>
-
-<details>
 <summary>최근 읽은 책 및 아티클은?</summary>
 
 AI 발전 이후 어떤 조직, 사람이 경쟁력이 있는지를 다룬 아티클을 읽었습니다
@@ -161,6 +156,35 @@ ai를 활용하여 문제 해결 방안을 제시할수 있는 사람이 되는�
 기존의 테스트 케이스에서 누락된 테스트 케이스가 있는지 확인합니다
 새로운 기능 추가시 어떤 테스트 케이스를 구성해야 할지 논의합니다
 </details>
+
+
+<details>
+<summary>한정된 리소스에서 품질을 유지하기 위한 방법은 무엇?</summary>
+</details>
+
+
+<details>
+<summary>트러블 슈팅 경험</summary>
+
+</details>
+
+
+<details>
+<summary>일하기 어려운 사람 유형</summary>
+
+</details>
+
+<details>
+<summary>새 기술 도입/ 제안 경험</summary>
+
+</details>
+
+
+<details>
+<summary>새 기술 도입/ 제안 경험</summary>
+
+</details>
+
 
 
 
@@ -854,6 +878,28 @@ Rolling: 서버를 하나씩 순차적으로 교체.
 </details> 
 
 
+
+<details> 
+<summary> reids</summary>
+
+- 인메모리 데이터스토어, 메모리에 올려두고 사용하여 빠름
+- 주로 빠른 읽기/쓰기로 캐시, 세션, 분산락, pub/sub, 큐 등에 사용
+- string, hash, set, sorted set 등의 자료구조를 지원
+
+- 캐시: db부하 줄일수 있음
+- 세션, 토큰: ttl관리가 쉬움
+- 메시지큐: 카프카 보다 빠름
+- 카운터 랭킹: incr, zset으로 구현 가능
+
+클러스터 환경에서 운영 복잡함
+redis cluster사용시 샤딩키 주의 필요
+단일 스레드 사용시 루아 스크립트 짧게 유지해야함
+
+
+</details> 
+
+
+
 ---
 ### 운영
 
@@ -942,6 +988,8 @@ p95가 평소 1.5 2배 늘어난다면 문제로 본다
 - [레이트 리밋 구현](rate_limit.md)
 
 - [풀텍스트 검색 구현](full_text.md)
+
+- [쿠폰 발급 설계](coupon.md)
 
 - 결제 시스템
 

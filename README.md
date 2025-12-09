@@ -996,22 +996,16 @@ p95가 평소 1.5 2배 늘어난다면 문제로 본다
 <details> 
 <summary>오버셀링 방지 대안 </summary>
 
-- 초기에 rdb재고를 redis에 복사
-    - stock:prod1 10
+- 레디스에 재고를 복사함 (초기작업) 
+    - stock:{prod_id} 
+- 사용자들이 결제화면 진입시 구매 가능한 상품 수량인지 확인함 이때 lua 스크립트를 사용해서 원자성을 유지해야함 
+    - stock:{prod_id} 와 현재 구매하려는 상품 수를 비교 
+    - 0보다 크다면 를 decr 로 차감하고 zadd reserve:{prod_id} {expire_at} {user_id}:{count} 으로 어떤 사용자가 몇개 상품을 구매하려고 하는지 저장함, zadd를 사용해서 expire_at 기준으로 정렬되도록 관리함 
+    - 0보다 작다면 구매 불가 
+- 결제가 성공적으로 진행되면 reserve:{prod_id} {expire_at} {user_id}:{count} 에서 {user_id}에 해당하는 내용을 제거함 
+- 결제를 진행하지 않고 이탈한다면 백엔드 비동기 워커가 reserve:{prod_id} 에 대해 zrangescore 0 now() 로 만료된 데이터를 조회하고 stock:{prod_id} 의 재고를 복구함 
+- 재고 불일치 문제 예방을 위해 동기화를 주기적으로 시도함
 
-- 사용자들이 결제 화면 진입하면 구매 가능한지 확인하고 레디스에 예약 정보 기록
-    - stock:prod1 의 재고와 현재 구매하려는 개수를 비교하여 구매 가능한지 검사
-    - 구매 가능하다면 reserve:prod1 zset에 user:{count} 같이 저장하고 stock:prod1 재고 차감
-    - EXPIRY_QUEUE 에 user_id:prod_id:{expired_at} 을 저장
-    - 위 내용은 원자성 유지를 위해 Lua script로 실행하거나 multi/exec로 묶어야 한다
-
-- 사용자가 브라우저 끄거나 오랫동안 방치할경우 대응하기위해 백엔드 워커를 사용한다
-- 워커는 EXPIRY_QUEUE를 탐색하고 만료된 데이터를 찾는다
-- reserve:{prod_id}를 에서 만료된 데이터 제거한다
-- stock:prod1의 재고도 복구한다
-- 또는 결제가 정상적으로 이뤄진다면
-    - reserve:prod1 의 예약 재고 제거한다
-    - EXPIRY_QUEUE 해당 내용도 제거한다
 </details> 
 
 <details> 

@@ -1074,4 +1074,4 @@ API Key + Secret + HMAC으로 요청 위변조를 검증하고, 통신 자체는
 
 - [쿠폰 발급 설계](coupon.md)
 
-- 입찰 시스템
+- [입찰 시스템](auction.md)
